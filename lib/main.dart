@@ -62,38 +62,15 @@ class MyApp extends StatelessWidget {
         ),
         body: SafeArea(
           child: Center(
-            child: Container(
-              height: 250.0,
-              width: 250.0,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
-                color: Colors.blue.withOpacity(0.5),
-              ),
-              child: Center(
-                child: RichText(
-                  text: const TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Ramtin',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Moradi',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueGrey,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ],
-                  ),
+            child: SizedBox(
+              width: 200,
+              height: 150,
+              child: Container(
+                width: 300.0,
+                height: 400.0,
+                color: Colors.redAccent,
+                child: const Text(
+                  'Ramtin Moradi',
                 ),
               ),
             ),
