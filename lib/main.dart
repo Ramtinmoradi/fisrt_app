@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,69 +13,67 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.blue,
-          elevation: 1,
           title: const Text(
-            'First App',
+            'Ramtin',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
               fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
+          centerTitle: true,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          elevation: 5.0,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.blue,
-          onPressed: () {},
-          child: const Icon(Icons.add),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          elevation: 1,
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 10.0,
-          color: Colors.blue,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: SafeArea(
-          child: Center(
-            child: SizedBox(
-              width: 200,
-              height: 150,
-              child: Container(
-                width: 300.0,
-                height: 400.0,
-                color: Colors.redAccent,
-                child: const Text(
-                  'Ramtin Moradi',
-                ),
-              ),
-            ),
-          ),
-        ),
+        body: const HomeScreen(),
       ),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DateTime selectedDateTime = DateTime.now();
+  selectedDateTimePicker(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDateTime,
+      initialDatePickerMode: DatePickerMode.year,
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2030),
+    );
+
+    if (picked != null && picked != selectedDateTime) {
+      setState(() {
+        selectedDateTime = picked;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: ElevatedButton(
+            onPressed: () => selectedDateTimePicker(context),
+            child: const Text('Pick Date'),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(
+          '${selectedDateTime.toLocal()}'.split(' ')[0],
+          style: const TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
